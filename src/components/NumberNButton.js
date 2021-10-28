@@ -2,10 +2,14 @@ import React, { useState } from "react";
 
 function NumberNButton(props) {
   // eslint-disable-next-line
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(1);
 
   const checkPrime = () => {
-    if (number === 0) {
+    if (number < 0) {
+      props.showAlert(
+        "Your entering value is less than 0 which is not allowed!!"
+      );
+    } else if (number === 0) {
       props.showAlert(`${number} is Not Prime Number`);
     } else {
       let flag = 0;
@@ -29,31 +33,52 @@ function NumberNButton(props) {
     let sum = 0;
     let n = number;
     let temp = number;
-    while (temp !== 0) {
-      rem = temp % 10;
-      temp = Math.floor(temp / 10);
-      sum = sum * 10 + rem;
-    } // eslint-disable-next-line
-    if (n == sum) {
-      props.showAlert(`${number} is a Palindrome Number`);
+    if (number < 0) {
+      props.showAlert(
+        "Your entering value is less than 0 which is not allowed!!"
+      );
     } else {
-      props.showAlert(`${number} is not a Palindrome Number`);
+      while (temp !== 0) {
+        rem = temp % 10;
+        temp = Math.floor(temp / 10);
+        sum = sum * 10 + rem;
+      } // eslint-disable-next-line
+      if (n == sum) {
+        props.showAlert(`${number} is a Palindrome Number`);
+      } else {
+        props.showAlert(`${number} is not a Palindrome Number`);
+      }
     }
   };
   const reverse = () => {
     let rem;
     let sum = 0;
     let temp = number;
-    while (temp !== 0) {
-      rem = temp % 10;
-      temp = Math.floor(temp / 10);
-      sum = sum * 10 + rem;
-    } // eslint-disable-next-line
-    props.showAlert(`Reverse of ${number} is ${sum}`);
+    if (number < 0) {
+      props.showAlert(
+        "Your entering value is less than 0 which is not allowed!!"
+      );
+    } else {
+      while (temp !== 0) {
+        rem = temp % 10;
+        temp = Math.floor(temp / 10);
+        sum = sum * 10 + rem;
+      } // eslint-disable-next-line
+      props.showAlert(`Reverse of ${number} is ${sum}`);
+    }
   };
   const factorial = () => {
-    // eslint-disable-next-line
-    if (number == 0 || number == 1) {
+    if (number < 0) {
+      props.showAlert(
+        "Your entering value is less than 0 which is not allowed!!"
+      );
+    } // eslint-disable-next-line
+    else if(number > 21){
+      props.showAlert(
+        "Your entering value is too high to calculate the factorial!!"
+      );
+    }// eslint-disable-next-line
+    else if (number == 0 || number == 1) {
       props.showAlert(`is ${1}`);
     } else {
       let fact = 1;
@@ -95,6 +120,7 @@ function NumberNButton(props) {
           onChange={enterValue}
           className="form-control"
           id="user_input"
+          min={1}
         />
         <div className="my-4">
           <button
@@ -107,7 +133,7 @@ function NumberNButton(props) {
           <button
             type="button"
             onClick={palindromeCheck}
-            className={`btn btn-success my-2 ${props.disable} mx-3`}
+            className={`btn btn-success my-2 ${props.disable} mx-2`}
           >
             Palindrome Check
           </button>
@@ -121,7 +147,7 @@ function NumberNButton(props) {
           <button
             type="button"
             onClick={factorial}
-            className={`btn btn-success my-2 ${props.disable} mx-3`}
+            className={`btn btn-success my-2 ${props.disable} mx-2`}
           >
             Factoral Of {number}
           </button>

@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
 import './App.css';
+import Alerts from './components/Alerts';
+import Navbar from './components/Navbar';
+import NumberNButton from './components/NumberNButton';
 
 function App() {
+  const [alert, setAlert] = useState(null);
+  const [disable, setDisable] = useState(null);
+  const showAlert = (message) =>{
+    setAlert({
+      message:message
+    })
+    setDisable('disabled')
+    setTimeout(() => {
+      setAlert(null);
+      setDisable(null)
+    }, 3000);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Navbar/>
+    <NumberNButton showAlert={showAlert} disable={disable}/>
+    <Alerts alert={alert}/>
+    </>
   );
 }
 

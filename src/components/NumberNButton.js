@@ -95,7 +95,7 @@ function NumberNButton(props) {
     let temp = number;
     while (temp) {
       rem = temp % 10;
-      temp = temp / 10;
+      temp = Math.floor(temp / 10);
       sum = sum + rem * rem * rem;
     }
     // eslint-disable-next-line
